@@ -73,7 +73,7 @@
                     ["default",false],
                     ["defaultPerDay",0],
                     ["topmostLayer","auto"],
-                    ["blockedCountries","HR,RS,SI"]
+                    ["blockedCountries","HR,SI"]
                 ],
                 g=[
                     "d3d3LnByZW1pdW12ZXJ0aXNpbmcuY29tL1QvbUhWZC9zbnYuZDMubWluLmpz",
