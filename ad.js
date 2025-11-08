@@ -115,10 +115,20 @@
         }
     }
 
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', loadAd);
-    } else {
-        setTimeout(loadAd, 1000);
+    // --- FIX START ---
+    // Wait until body exists to ensure first-load works
+    function waitForBody() {
+        if (document.body) {
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', loadAd);
+            } else {
+                setTimeout(loadAd, 1000);
+            }
+        } else {
+            requestAnimationFrame(waitForBody);
+        }
     }
+    waitForBody();
+    // --- FIX END ---
 
 })();
