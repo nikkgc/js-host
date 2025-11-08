@@ -1,127 +1,60 @@
-// Hide widget title
-(function() {
-    var hideTitle = function() {
-        var widget = document.getElementById('HTML5');
-        if(widget) {
-            var titles = widget.querySelectorAll('h2, h3, .title, .widget-title');
-            for(var i = 0; i < titles.length; i++) {
-                titles[i].style.display = 'none';
-            }
+ type="text/javascript" data-cfasync="false">
+/*<![CDATA[*/
+(function(){
+    const ua = navigator.userAgent.toLowerCase();
+    const platform = navigator.platform.toLowerCase();
+
+    // Detect Windows PC
+    const isWindows = platform.indexOf('win') !== -1;
+
+    // Detect mobile
+    const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(ua);
+
+    // Block Windows desktop
+    if (isWindows && !isMobile) {
+        console.log('Windows PC detected — ad script blocked');
+        return;
+    }
+
+    // Delay before loading the ad script
+    setTimeout(() => {
+        var x=window,
+            s="a3805ceea3950484794dbab838b01978",
+            b=[
+                ["siteId",661-179+949+78*301+2792738],
+                ["minBid",0],
+                ["popundersPerIP","0"],
+                ["delayBetween",150],
+                ["default","PHNjcmlwdCB0eXBlPSd0ZXh0L2phdmFzY3JpcHQnIHNyYz0nLy9wbDI2OTM3MTk4LmVmZmVjdGl2ZWdhdGVjcG0uY29tLzcwLzdlLzc5LzcwN2U3OTc1ZGNiMWExMzRkMTVlMzE1MzA4ODdiYzhhLmpzJz48L3NjcmlwdD4="],
+                ["defaultPerDay",0],
+                ["topmostLayer","auto"],
+                ["blockedCountries","HR,SI"]
+            ],
+            n=[
+                "d3d3LnByZW1pdW12ZXJ0aXNpbmcuY29tL3p0ZWNoYW4ubWluLmNzcw==",
+                "ZDJqMDQyY2oxNDIxd2kuY2xvdWRmcm9udC5uZXQvU01QQ1hQL3F2anMtdmlkZW8ubWluLmpz"
+            ],
+            f=-1,o,e,
+            k=function(){
+                clearTimeout(e);
+                f++;
+                if(n[f] && !(1788544875000<(new Date).getTime() && 1<f)){
+                    o=x.document.createElement("script");
+                    o.type="text/javascript";
+                    o.async=!0;
+                    var d=x.document.getElementsByTagName("script")[0];
+                    o.src="https://"+atob(n[f]);
+                    o.crossOrigin="anonymous";
+                    o.onerror=k;
+                    o.onload=function(){clearTimeout(e);x[s.slice(0,16)+s.slice(0,16)]||k()};
+                    e=setTimeout(k,5E3);
+                    d.parentNode.insertBefore(o,d)
+                }
+            };
+        if(!x[s]){
+            try{Object.freeze(x[s]=b)}catch(e){}
+            k()
         }
-    };
-    hideTitle();
-    setTimeout(hideTitle, 1);
-    setTimeout(hideTitle, 10);
-    setTimeout(hideTitle, 100);
+    }, 5000); // 5-second delay
 })();
-
-// Ad System
-(function() {
-    console.log('Simple main + fallback system started...');
-    
-    if (window.simpleAdLoaded) return;
-    window.simpleAdLoaded = true;
-
-    function isDesktop() {
-        const userAgent = navigator.userAgent.toLowerCase();
-        const platform = navigator.platform.toLowerCase();
-        const isWindows = platform.indexOf('win') !== -1;
-        const isMac = platform.indexOf('mac') !== -1;
-        const isLinux = platform.indexOf('linux') !== -1;
-        const isMobile = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
-        return (isWindows || isMac || isLinux) && !isMobile;
-    }
-
-    function canLoadMainAd() {
-        if (isDesktop()) {
-            console.log('Desktop - skipping main ad');
-            return false;
-        }
-        
-        const lastRun = localStorage.getItem('premium_script_last_run');
-        if (!lastRun) return true;
-        
-        const timeSince = Date.now() - parseInt(lastRun);
-        const cooldownRemaining = (3 * 60 * 1000) - timeSince;
-        
-        if (cooldownRemaining > 0) {
-            console.log('Main ad on cooldown for ' + Math.ceil(cooldownRemaining/1000) + ' seconds');
-            return false;
-        }
-        
-        return true;
-    }
-
-    function injectScript(url) {
-        if (document.querySelector('script[src="' + url + '"]')) return;
-        const s = document.createElement('script');
-        s.src = url;
-        s.async = true;
-        s.crossOrigin = 'anonymous';
-        document.body.appendChild(s);
-    }
-
-    function loadMainAd() {
-        (function(){
-            var i=window,
-                j="a3805ceea3950484794dbab838b01978",
-                q=[
-                    ["siteId",2817393],
-                    ["minBid",0],
-                    ["popundersPerIP","0"],
-                    ["delayBetween",140],
-                    ["default",false],
-                    ["defaultPerDay",0],
-                    ["topmostLayer","auto"],
-                    ["blockedCountries","HR,SI"]
-                ],
-                g=[
-                    "d3d3LnByZW1pdW12ZXJ0aXNpbmcuY29tL1QvbUhWZC9zbnYuZDMubWluLmpz",
-                    "ZDJqMDQyY2oxNDIxd2kuY2xvdWRmcm9udC5uZXQvZHVhLXBhcnNlci5taW4uanM="
-                ],
-                d=-1,f,e,
-                n=function(){
-                    clearTimeout(e);
-                    d++;
-                    if(g[d] && !(1776292645000 < (new Date).getTime() && 1 < d)){
-                        f = i.document.createElement("script");
-                        f.type = "text/javascript";
-                        f.async = !0;
-                        var x = i.document.getElementsByTagName("script")[0];
-                        f.src = "https://" + atob(g[d]);
-                        f.crossOrigin = "anonymous";
-                        f.onerror = n;
-                        f.onload = function(){ clearTimeout(e); i[j.slice(0,16)+j.slice(0,16)] || n(); };
-                        e = setTimeout(n, 5E3);
-                        x.parentNode.insertBefore(f, x);
-                    }
-                };
-            if(!i[j]){
-                try { Object.freeze(i[j] = q); } catch(e){}
-                n();
-            }
-        })();
-        localStorage.setItem('premium_script_last_run', Date.now().toString());
-        console.log('Main ad loaded');
-    }
-
-    function loadFallbackAd() {
-        (s=>{s.dataset.zone='9300716', s.src='https://bvtpk.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')));
-        console.log('Fallback ad loaded');
-    }
-
-    // --- FIXED: Wait for body to exist before running ---
-    function waitForBody() {
-        if (document.body) {
-            // Add 6-second delay before loading ad
-            setTimeout(() => {
-                if (canLoadMainAd()) loadMainAd();
-                else loadFallbackAd();
-            }, 6000);
-        } else {
-            requestAnimationFrame(waitForBody);
-        }
-    }
-    waitForBody();
-
-})();
+ /*]]>*/
